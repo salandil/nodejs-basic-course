@@ -8,5 +8,5 @@ export const cp = async (data, ...args) => {
       return;
     }
  
-  await copyFile(data, ...args);
+  return await copyFile(data, ...args);
 }

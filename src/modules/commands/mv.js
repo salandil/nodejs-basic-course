@@ -1,4 +1,4 @@
-import { INVALID_INPUT, OPERATION_ERROR } from '../helper/helpers.js';
+import { INVALID_INPUT } from '../helper/helpers.js';
 import { copyFile } from '../helper/copy.file.js';
 import { rm } from 'fs/promises';
 import { getParsedPath } from '../navi/path.js';
@@ -11,10 +11,12 @@ export const mv = async (data, ...args) => {
     return;
   }
   const filePath = getParsedPath(data, args[0]);
-  await copyFile(data, ...args);
+  const result = await copyFile(data, ...args);
+  if (!result) return;
+
   try {
-    await rm(filePath);
-  } catch (error) {
-    console.log(OPERATION_ERROR);
+    return await rm(filePath);
+  } catch (_) {
+    return;
   }
 }

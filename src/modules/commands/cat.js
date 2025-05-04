@@ -14,7 +14,11 @@ export const cat = async (data, ...args) => {
       process.stdout.write(chunk);
       process.stdout.write('\n');
       return;
-    })    
+    })
+    readable.on('error', (error) => {
+      console.log(OPERATION_ERROR);
+      return;
+    });   
   } catch (error) {
     console.log(OPERATION_ERROR);
     return;
